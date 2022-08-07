@@ -1,0 +1,52 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 966x475+390+188
+placeFrames 0.30523255813953487
+set ::ratio 0.30523255813953487
+set ::old_w_leftf 160
+set ::watchlist {
+    sig+machine-is-on
+    sig+machine-is-enabled
+    sig+estop-out
+    pin+halui.program.is-running
+    pin+halui.program.is-idle
+    pin+halui.program.is-paused
+    pin+halui.machine.off
+    pin+halui.machine.on
+    pin+halui.program.run
+    pin+halui.program.step
+    pin+halui.program.stop
+    pin+halui.program.resume
+    pin+halui.program.optional-stop.on
+    pin+halui.program.optional-stop.off
+    pin+halui.program.optional-stop.is-on
+    pin+motion.motion-enabled
+    pin+halui.abort
+    pin+hm2_7i96s.0.ssr.00.out-02
+    pin+hm2_7i96s.0.ssr.00.out-01
+    pin+hm2_7i96s.0.ssr.00.out-00
+    pin+hm2_7i96s.0.ssr.00.invert-03
+    pin+hm2_7i96s.0.ssr.00.out-03
+    sig+flashing_red
+    sig+flash-on
+    sig+flash-on-a
+    sig+flash-on-b
+    sig+y-enable
+    sig+xestop
+    sig+y2-pos-limit
+    pin+joint.1.neg-lim-sw-in
+    pin+joint.1.pos-lim-sw-in
+    pin+joint.0.neg-lim-sw-in
+    pin+joint.2.pos-lim-sw-in
+    pin+joint.2.pos-cmd
+    pin+joint.2.neg-lim-sw-in
+    pin+joint.3.pos-lim-sw-in
+    pin+joint.0.pos-lim-sw-in
+}
+set ::workmode watchhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 0
+set ::autoSaveWatchlist 1

@@ -1,0 +1,77 @@
+# Include your custom HAL commands here
+# This file will not be overwritten when you run PNCconf agai
+#loadusr -W vfdmod vfd.ini
+loadrt classicladder_rt numS32out=100
+loadrt not count=1
+loadrt and2 count=1
+loadrt or2 count=1
+loadrt siggen num_chan=1
+loadrt conv_float_s32 count=1
+loadrt conv_s32_bit count=1
+
+addf classicladder.0.refresh servo-thread
+addf not.0 servo-thread
+addf and2.0 servo-thread
+addf or2.0 servo-thread
+addf siggen.0.update servo-thread
+addf conv-float-s32.0 servo-thread
+addf conv-s32-bit.0 servo-thread
+
+
+setp siggen.0.frequency 1
+setp siggen.0.offset 0.5
+setp siggen.0.amplitude 0.5
+
+loadusr classicladder --modmaster vfd.clp
+
+net spindle-on classicladder.0.in-00 spindle.0.on
+
+net spindle-brake classicladder.0.in-01 spindle.0.brake
+
+net spindle-forward classicladder.0.in-02 spindle.0.forward
+
+net spindle-reverse classicladder.0.in-03 spindle.0.reverse
+
+net spindle-cmd-rpm <= spindle.0.speed-out
+
+net spindle-cmd-rpm-abs <= spindle.0.speed-out-abs
+
+net spindle-cmd-rps <= spindle.0.speed-out-rps
+
+net spindle-cmd-rps-abs <= spindle.0.speed-out-rps-abs classicladder.0.floatin-00
+
+net green-led-out classicladder.0.out-02 => [HMOT](CARD0).ssr.00.out-00
+
+net blue-led-out classicladder.0.out-03 => [HMOT](CARD0).ssr.00.out-01
+
+net red-led-in0 <= classicladder.0.out-04 => or2.0.in0
+
+
+
+net machine-is-on classicladder.0.in-04 
+
+net estop-out classicladder.0.in-05
+
+net program-running halui.program.is-running classicladder.0.in-06
+
+net program-idle halui.program.is-idle classicladder.0.in-07
+
+net program-paused halui.program.is-paused classicladder.0.in-08
+
+
+##Flash Red LED on E-Stop
+net estop-out => not.0.in
+
+net xestop <= not.0.out
+
+net flash-on-a conv-float-s32.0.in <= siggen.0.square
+net flash-on-b conv-s32-bit.0.in <= conv-float-s32.0.out
+net flash-on <= conv-s32-bit.0.out 
+net flash-on => and2.0.in0
+net xestop => and2.0.in1
+net flashing_red <= and2.0.out => or2.0.in1
+net red-led-out <= or2.0.out
+net red-led-out => [HMOT](CARD0).ssr.00.out-02
+########
+
+#POSTGUI_HALFILE = vfd.hal
