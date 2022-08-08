@@ -33,7 +33,6 @@ set ::watchlist {
     sig+flash-on-b
     sig+y-enable
     sig+xestop
-    sig+y2-pos-limit
     pin+joint.1.neg-lim-sw-in
     pin+joint.1.pos-lim-sw-in
     pin+joint.0.neg-lim-sw-in
